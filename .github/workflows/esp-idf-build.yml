@@ -1,0 +1,30 @@
+name: ESP-IDF Build for ESP32
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up ESP-IDF environment
+      uses: espressif/esp-idf-ci-action@v1
+      with:
+        esp_idf_version: v4.4.6
+        target: esp32s3
+
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Navigate to esp32 directory
+      run: cd esp32
+
+    - name: Build firmware
+      run: |
+        . $HOME/esp/esp-idf/export.sh
+        idf.py build
+
+    - name: Archive firmware binary
+      uses: actions/upload-artifact@v2
+      with:
+        name: firmware
+        path: build/esp32/*.bin
