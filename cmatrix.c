@@ -63,6 +63,10 @@
 
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
+
+#ifdef ESP32
+#include "cmatrix_esp32.h"
+#endif
 #endif
 
 #ifdef HAVE_TERMIOS_H
@@ -129,8 +133,13 @@ void c_die(char *msg, ...) {
     curs_set(1);
     clear();
     refresh();
+    #ifndef ESP32
     resetty();
     endwin();
+#endif
+#ifdef ESP32
+    esp32_deinit_display();
+#endif
 
     if (console) {
 #ifdef HAVE_CONSOLECHARS
@@ -457,7 +466,12 @@ int main(int argc, char *argv[]) {
             exit(EXIT_FAILURE);
         set_term(ttyscr);
     } else
-        initscr();
+        #ifndef ESP32
+    initscr();
+#endif
+#ifdef ESP32
+    esp32_init_display();
+#endif
     savetty();
     nonl();
 #ifdef _WIN32
@@ -763,6 +777,10 @@ if (console) {
                 z = LINES - 1;
             }
             for (i = y; i <= z; i++) {
+              #ifdef ESP32
+                }
+                esp32_render_frame(matrix);
+#else
                 move(i - y, j);
 
                 if (matrix[i][j].val == 0 || (matrix[i][j].is_head && !rainbow)) {
@@ -888,6 +906,7 @@ if (console) {
                 addch(' ');
         }
 
+#endif // Close loop for #ifdef ESP32 in previous section
         napms(update * 10);
     }
     finish();
