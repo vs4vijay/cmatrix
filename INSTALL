@@ -3,6 +3,8 @@ Basic Installation
 
    These are generic installation instructions.
 
+   If you are compiling cmatrix for the M5Stack CardPuter, you need to install the ESP-IDF development framework and its dependencies first by following the official Espressif documentation.
+
    The `configure' shell script attempts to guess correct values for
 various system-dependent variables used during compilation.  It uses
 those values to create a `Makefile' in each directory of the package.
@@ -141,6 +143,14 @@ system on which you are compiling the package.
 
 Sharing Defaults
 ================
+
+   For M5Stack CardPuter, it's crucial to set specific compiler and linker flags for successful cross-compilation. This includes adjusting the `CC`, `CXX`, and `LD` flags to use the cross-compiler provided by ESP-IDF. A typical setup might look like:
+
+   ```
+   export CC=xtensa-esp32-elf-gcc
+   export CXX=xtensa-esp32-elf-g++
+   export LD=xtensa-esp32-elf-ld
+   ```
 
    If you want to set default values for `configure' scripts to share,
 you can create a site shell script called `config.site' that gives
