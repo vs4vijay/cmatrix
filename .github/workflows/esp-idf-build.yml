@@ -5,6 +5,7 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
     - name: Check out repository
       uses: actions/checkout@v4
@@ -14,13 +15,12 @@ jobs:
       with:
         esp_idf_version: v4.4.6
         target: esp32s3
+        path: esp32
 
-    - name: Build firmware
-      working-directory: esp32
+    - name: List all files
+      if: always()
+      continue-on-error: true
       run: |
-        idf.py build
-
-    - run: |
         set -x
         pwd
         ls -all
