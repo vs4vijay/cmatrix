@@ -77,6 +77,32 @@ make
 make install
 ```
 
+<section id="G">
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+## :floppy_disk: Building for M5Stack CardPuter (ESP32)
+
+To build cmatrix for the M5Stack CardPuter (ESP32), follow these steps:
+
+1. Set up your ESP-IDF environment by following the instructions available at [the official ESP-IDF Programming Guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/).
+
+2. Clone the cmatrix repository:
+```sh
+git clone https://github.com/abishekvashok/cmatrix.git
+cd cmatrix/esp32
+```
+
+3. Navigate to the `esp32` directory and use the ESP-IDF build system to compile and flash the firmware:
+```sh
+idf.py build
+idf.py -p (PORT) flash
+```
+
+For automated builds, we utilize GitHub Actions CI. You can find pre-built firmware binaries for flashing in the "Actions" tab of the GitHub repository.
+
+</section id="G">
+
 #### :small_blue_diamond: Using CMake
 Here we also show an out-of-source build in the sub directory "build".
 (Doesn't work on Windows, for now).

@@ -1,0 +1,33 @@
+name: ESP-IDF Build for ESP32
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+    
+    - name: Set up ESP-IDF environment
+      uses: espressif/esp-idf-ci-action@v1
+      with:
+        esp_idf_version: v4.4.6
+        target: esp32s3
+        path: esp32
+
+    - name: List all files
+      if: always()
+      continue-on-error: true
+      run: |
+        set -x
+        pwd
+        ls -all
+        tree
+
+    - name: Archive firmware binary
+      uses: actions/upload-artifact@v2
+      with:
+        name: firmware
+        path: build/esp32/*.bin
