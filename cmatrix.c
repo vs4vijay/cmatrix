@@ -193,6 +193,12 @@ void *nmalloc(size_t howmuch) {
 void var_init() {
     int i, j;
 
+    /* Check if running on M5Stack CardPuter */
+    if(getenv("M5STACK_CARDPUTER")) {
+        LINES = 135; /* M5Stack CardPuter screen height */
+        COLS = 240;  /* M5Stack CardPuter screen width */
+    }
+
     if (matrix != NULL) {
         free(matrix[0]);
         free(matrix);
@@ -200,10 +206,12 @@ void var_init() {
 
     matrix = nmalloc(sizeof(cmatrix *) * (LINES + 1));
     matrix[0] = nmalloc(sizeof(cmatrix) * (LINES + 1) * COLS);
+    /* Adjust arrays for M5Stack CardPuter resolution */
     for (i = 1; i <= LINES; i++) {
         matrix[i] = matrix[i - 1] + COLS;
     }
 
+    /* Adapt dynamic memory allocations for M5Stack CardPuter */
     if (length != NULL) {
         free(length);
     }
