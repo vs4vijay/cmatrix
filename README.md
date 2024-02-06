@@ -180,6 +180,25 @@ If you have any suggestions/flames/patches to send, please feel free to:
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+## :video_game: M5Stack CardPuter Compatibility
+CMatrix has been made compatible with the M5Stack CardPuter. This allows users to enjoy the Matrix-like effects on their M5Stack devices. Here are some features and limitations:
+
+### Features
+- Full screen Matrix effect on the M5Stack CardPuter's display.
+- Interactivity through built-in buttons to change color, pause/resume the effect, and exit the program.
+
+### Limitations
+- Due to the screen size and resolution constraints of the M5Stack CardPuter, some visual effects may be limited compared to running cmatrix on a traditional terminal.
+
+### Specific Steps for M5Stack CardPuter
+1. Ensure you have the ESP-IDF development environment set up for compiling code for the ESP32 (the heart of the M5Stack).
+2. Clone the cmatrix repository and navigate into the cloned directory.
+3. Use the provided Makefile for M5Stack to compile the program (`make TARGET=m5stack`).
+4. Flash the compiled binary to your M5Stack CardPuter using the `esptool.py` script.
+5. Run and interact with cmatrix using the A, B, and C buttons on the device.
+
 ## :page_facing_up: License
 This software is provided under the GNU GPL v3. [View License](./COPYING)
 
