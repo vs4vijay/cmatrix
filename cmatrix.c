@@ -65,6 +65,9 @@
 #include <unistd.h>
 #endif
 
+/* M5Stack CardPuter Button Handling Includes */
+#include "esp32-hal-gpio.h"
+
 #ifdef HAVE_TERMIOS_H
 #include <termios.h>
 #elif defined(HAVE_TERMIO_H)
@@ -566,6 +569,17 @@ if (console) {
                     finish();
         }
 #endif
+
+        /* Check for M5Stack CardPuter Button Inputs */
+        if (digitalRead(37) == HIGH) { /* Button A */
+            mcolor = (mcolor + 1) % 8; /* Cycle through colors */
+        }
+        if (digitalRead(38) == HIGH) { /* Button B */
+            pause = !pause; /* Toggle pause */
+        }
+        if (digitalRead(39) == HIGH) { /* Button C */
+            finish(); /* Exit program */
+        }
 
         count++;
         if (count > 4) {
